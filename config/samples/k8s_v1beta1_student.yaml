@@ -1,0 +1,12 @@
+apiVersion: k8s.unito.it/v1beta1
+kind: Student
+metadata:
+  labels:
+    app.kubernetes.io/name: student
+    app.kubernetes.io/instance: student-sample
+    app.kubernetes.io/part-of: operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: operator
+  name: silvio
+spec:
+  surname: lanza
