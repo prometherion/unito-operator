@@ -1,6 +1,14 @@
 # operator
 // TODO(user): Add simple overview of use/purpose
 
+## 18/05/2023
+
+```shell
+go mod init github.com/prometherion/unito-operator
+operator-sdk init --domain unito.it
+operator-sdk create api --group k8s --kind Student --version v1beta1
+```
+
 ## Description
 // TODO(user): An in-depth paragraph about your project and overview of use
 
