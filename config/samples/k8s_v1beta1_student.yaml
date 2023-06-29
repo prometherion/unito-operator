@@ -10,3 +10,5 @@ metadata:
   name: silvio
 spec:
   surname: lanza
+  birthDate: 1989-01-01
+  nickname: s1lv10

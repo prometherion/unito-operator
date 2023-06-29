@@ -20,24 +20,31 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // StudentSpec defines the desired state of Student
 type StudentSpec struct {
-	Surname    string `json:"surname"`
-	BirthDate  string `json:"birthDate"`
-	CourseYear string `json:"courseDear"`
+	// Surname is the student surname.
+	Surname string `json:"surname"`
+	// BirthDate is referring to the YYYY-MM-DD birthdate of the student.
+	BirthDate string `json:"birthDate"`
+	// CourseYear is the academic year the student is attending.
+	// +kubebuilder:default="2022-2023"
+	CourseYear string `json:"courseYear,omitempty"`
+	// Nickname refers to the nickname of the student.
+	Nickname string `json:"nickname,omitempty"`
 }
 
 // StudentStatus defines the observed state of Student
 type StudentStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	Initialized bool `json:"initialized"`
+	// +kubebuilder:validation:Enum=Rejected;Accepted
+	Acceptance string `json:"acceptance"`
 }
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+//+kubebuilder:printcolumn:name="Nickname",type=string,JSONPath=`.spec.nickname`
+//+kubebuilder:printcolumn:name="Acceptance",type=string,JSONPath=`.status.acceptance`
+//+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // Student is the API to manage and control UNITO students.
 type Student struct {

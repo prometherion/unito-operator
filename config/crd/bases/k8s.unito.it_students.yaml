@@ -15,7 +15,17 @@ spec:
     singular: student
   scope: Namespaced
   versions:
-  - name: v1beta1
+  - additionalPrinterColumns:
+    - jsonPath: .spec.nickname
+      name: Nickname
+      type: string
+    - jsonPath: .status.acceptance
+      name: Acceptance
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
     schema:
       openAPIV3Schema:
         description: Student is the API to manage and control UNITO students.
@@ -36,18 +46,36 @@ spec:
             description: StudentSpec defines the desired state of Student
             properties:
               birthDate:
+                description: BirthDate is referring to the YYYY-MM-DD birthdate of
+                  the student.
                 type: string
-              courseDear:
+              courseYear:
+                default: 2022-2023
+                description: CourseYear is the academic year the student is attending.
+                type: string
+              nickname:
+                description: Nickname refers to the nickname of the student.
                 type: string
               surname:
+                description: Surname is the student surname.
                 type: string
             required:
             - birthDate
-            - courseDear
             - surname
             type: object
           status:
             description: StudentStatus defines the observed state of Student
+            properties:
+              acceptance:
+                enum:
+                - Rejected
+                - Accepted
+                type: string
+              initialized:
+                type: boolean
+            required:
+            - acceptance
+            - initialized
             type: object
         type: object
     served: true
