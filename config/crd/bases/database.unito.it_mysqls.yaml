@@ -5,30 +5,30 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.10.0
   creationTimestamp: null
-  name: students.k8s.unito.it
+  name: mysqls.database.unito.it
 spec:
-  group: k8s.unito.it
+  group: database.unito.it
   names:
-    kind: Student
-    listKind: StudentList
-    plural: students
-    singular: student
+    kind: MySQL
+    listKind: MySQLList
+    plural: mysqls
+    singular: mysql
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.nickname
-      name: Nickname
+    - jsonPath: .status.address
+      name: Address
       type: string
-    - jsonPath: .status.acceptance
-      name: Acceptance
-      type: string
+    - jsonPath: .status.ready
+      name: Ready
+      type: boolean
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
     name: v1beta1
     schema:
       openAPIV3Schema:
-        description: Student is the API to manage and control UNITO students.
+        description: MySQL is the Schema for the mysqls API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -43,39 +43,45 @@ spec:
           metadata:
             type: object
           spec:
-            description: StudentSpec defines the desired state of Student
+            description: MySQLSpec defines the desired state of MySQL
             properties:
-              birthDate:
-                description: BirthDate is referring to the YYYY-MM-DD birthdate of
-                  the student.
-                type: string
-              courseYear:
-                default: 2022-2023
-                description: CourseYear is the academic year the student is attending.
-                type: string
-              nickname:
-                description: Nickname refers to the nickname of the student.
-                type: string
-              surname:
-                description: Surname is the student surname.
+              authentication:
+                properties:
+                  rootPassword:
+                    description: Assign the root password for the MySQL instance.
+                    type: string
+                required:
+                - rootPassword
+                type: object
+              version:
+                description: 'Version is the MySQL instance version that must be run
+                  as Pods. It refers to the Docker Hub available tags: https://hub.docker.com/_/mysql/tags'
+                minLength: 1
                 type: string
             required:
-            - birthDate
-            - surname
+            - authentication
+            - version
             type: object
           status:
-            description: StudentStatus defines the observed state of Student
+            description: MySQLStatus defines the observed state of MySQL
             properties:
-              acceptance:
-                enum:
-                - Rejected
-                - Accepted
+              address:
+                description: The IP address on which the MySQL instance is listening
+                  to.
                 type: string
               initialized:
+                description: Check if the required resources have been provisioned.
                 type: boolean
+              ready:
+                description: Check if the MySQL instance is up and running.
+                type: boolean
+              rootPassword:
+                type: string
             required:
-            - acceptance
+            - address
             - initialized
+            - ready
+            - rootPassword
             type: object
         type: object
     served: true

@@ -6,9 +6,9 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - k8s.unito.it
+  - ""
   resources:
-  - students
+  - pods
   verbs:
   - create
   - delete
@@ -18,15 +18,37 @@ rules:
   - update
   - watch
 - apiGroups:
-  - k8s.unito.it
+  - ""
   resources:
-  - students/finalizers
+  - services
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - watch
+- apiGroups:
+  - database.unito.it
+  resources:
+  - mysqls
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - database.unito.it
+  resources:
+  - mysqls/finalizers
   verbs:
   - update
 - apiGroups:
-  - k8s.unito.it
+  - database.unito.it
   resources:
-  - students/status
+  - mysqls/status
   verbs:
   - get
   - patch

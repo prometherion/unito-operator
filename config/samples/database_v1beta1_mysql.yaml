@@ -1,0 +1,14 @@
+apiVersion: database.unito.it/v1beta1
+kind: MySQL
+metadata:
+  labels:
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/instance: mysql-sample
+    app.kubernetes.io/part-of: operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: operator
+  name: mysql-sample
+spec:
+  authentication:
+    rootPassword: qwerty123
+  version: "8.0"

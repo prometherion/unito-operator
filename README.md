@@ -6,7 +6,7 @@
 ```shell
 go mod init github.com/prometherion/unito-operator
 operator-sdk init --domain unito.it
-operator-sdk create api --group k8s --kind Student --version v1beta1
+operator-sdk create api --group database --kind MySQL --version v1beta1
 ```
 
 ## Description

@@ -12,8 +12,8 @@ resources:
     namespaced: true
   controller: true
   domain: unito.it
-  group: k8s
-  kind: Student
+  group: database
+  kind: MySQL
   path: github.com/prometherion/unito-operator/api/v1beta1
   version: v1beta1
 version: "3"
